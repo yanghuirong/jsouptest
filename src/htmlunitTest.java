@@ -27,12 +27,13 @@ public class htmlunitTest  {
 		}
 	}
 	
-	public static void submittingForm() throws Exception {
+	public static HtmlPage[] submittingForm() throws Exception {
 	    try (final WebClient webClient = new WebClient()) {
 	      
-	     
+	        final HtmlPage page[] = new HtmlPage[9];
+
 	        // Get the first page
-	        final HtmlPage page1 = webClient.getPage("http://113.240.255.146:802/CompList.aspx");
+	        page[0] = webClient.getPage("http://113.240.255.146:802/CompList.aspx");
 	        
 	        LogFactory.getFactory().setAttribute("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.NoOpLog");
 
@@ -71,8 +72,13 @@ public class htmlunitTest  {
 	        webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
 	        // Get the form that we are dealing with and within that form, 
 	        // find the submit button and the field that we want to change.
-	        final HtmlForm form = page1.getFormByName("aspnetForm");
-	        final HtmlAnchor div = page1.getHtmlElementById("ctl00_ContentPlaceHolder1_PageNavigator1_LnkBtnNext");
+	        int i = 0;
+	        for (; i < 8; i++){
+	        	final HtmlForm form = page[i].getFormByName("aspnetForm");
+	        	final HtmlAnchor div = page[i].getHtmlElementById("ctl00_ContentPlaceHolder1_PageNavigator1_LnkBtnNext");
+	        	page[i+1] = div.click();        
+	        }
+	        return page;
 	       // final HtmlAnchor anchor = page1.getAnchorByName("ctl00_ContentPlaceHolder1_PageNavigator1_LnkBtnNext");
 
 //
@@ -83,8 +89,8 @@ public class htmlunitTest  {
 //	        //textField.setValueAttribute("root");
 //
 //	        // Now submit the form by clicking the button and get back the second page.
-	        final HtmlPage page2 = div.click();
-	        System.out.println("aa"+page2.getWebResponse().getContentAsString());
+	        //System.out.println("aa"+page2.getWebResponse().getContentAsString());
+
 	    }
 	}
 }

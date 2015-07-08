@@ -11,6 +11,8 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+
 
 public class information {
 	public String companyNameSave ="";
@@ -76,19 +78,28 @@ public class information {
 
 
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 		  File file = new File("test1.xls");
 		  if(!file.exists()){
 		   file.createNewFile();
 		  }
 		  List<information> piecesOfInformation = new ArrayList<information>();
+		  htmlunitTest b = new htmlunitTest();
+		  //HtmlPage c = b.submittingForm();
+		  HtmlPage d[] = new HtmlPage[9];
+		  d = b.submittingForm();
 		  HTMLParser a = new HTMLParser();
-		  a.getData();
-		  System.out.println(a.totalNumOfProject);
+		  int j = 0;
+		  for (j=0;j<=8;j++){
+			  a.getData(d[j]);
+			  //System.out.println("aa"+a);
+			  //System.out.println(a.totalNumOfProject);
+		  }
 		  int s = 0;
 		  for( s = 0;s<a.totalNumOfProject; s++)
 		  {
-		  piecesOfInformation.add(new information(a.companyNameSave[s],a.projectName[s],a.settlementPrice[s],a.completionDate[s], a.quality[s], a.mainJob[s],a.status[s]));
+			  piecesOfInformation.add(new information(a.companyNameSave[s],a.projectName[s],a.settlementPrice[s],a.completionDate[s], a.quality[s], a.mainJob[s],a.status[s]));
+			  System.out.println(piecesOfInformation);
 		  }
 		  write2excel(piecesOfInformation, file);
 		 }
