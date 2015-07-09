@@ -13,7 +13,10 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
-
+/**
+ * use poi to create excel file
+ * 
+ */
 public class information {
 	public String companyNameSave ="";
 	public String projectName = "";
@@ -79,27 +82,23 @@ public class information {
 
 	
 	public static void main(String[] args) throws Exception {
-		  File file = new File("test1.xls");
+		  File file = new File("test.xls");
 		  if(!file.exists()){
 		   file.createNewFile();
 		  }
 		  List<information> piecesOfInformation = new ArrayList<information>();
 		  htmlunitTest b = new htmlunitTest();
-		  //HtmlPage c = b.submittingForm();
 		  HtmlPage d[] = new HtmlPage[9];
 		  d = b.submittingForm();
 		  HTMLParser a = new HTMLParser();
 		  int j = 0;
 		  for (j=0;j<=8;j++){
 			  a.getData(d[j]);
-			  //System.out.println("aa"+a);
-			  //System.out.println(a.totalNumOfProject);
 		  }
 		  int s = 0;
 		  for( s = 0;s<a.totalNumOfProject; s++)
 		  {
 			  piecesOfInformation.add(new information(a.companyNameSave[s],a.projectName[s],a.settlementPrice[s],a.completionDate[s], a.quality[s], a.mainJob[s],a.status[s]));
-			  System.out.println(piecesOfInformation);
 		  }
 		  write2excel(piecesOfInformation, file);
 		 }
@@ -143,7 +142,7 @@ public class information {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        System.out.println("数据已经写入excel"); //温馨提示
+        System.out.println("数据已经写入excel"); 
 	}
 	
 }

@@ -16,13 +16,16 @@ import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 import com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener;
 
+/**
+ * use htmlunit to go through next page button and find the all the html file
+ * 
+ */
 
 public class htmlunitTest  {
 	public static void main(String args[])  {
 		try {
 			submittingForm();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -34,7 +37,7 @@ public class htmlunitTest  {
 
 	        // Get the first page
 	        page[0] = webClient.getPage("http://113.240.255.146:802/CompList.aspx");
-	        
+	        // delete the warnings, does not work
 	        LogFactory.getFactory().setAttribute("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.NoOpLog");
 
 	        java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF); 
@@ -44,7 +47,6 @@ public class htmlunitTest  {
 	            @Override
 	            public void notify(String arg0, Object arg1) {
 	                // TODO Auto-generated method stub
-
 	            }
 	        });
 	        webClient.getOptions().setCssEnabled(false);
@@ -79,18 +81,6 @@ public class htmlunitTest  {
 	        	page[i+1] = div.click();        
 	        }
 	        return page;
-	       // final HtmlAnchor anchor = page1.getAnchorByName("ctl00_ContentPlaceHolder1_PageNavigator1_LnkBtnNext");
-
-//
-	        //final HtmlSubmitInput button = form.getInputByName("ctl00_ContentPlaceHolder1_PageNavigator1_LnkBtnNext");
-//	        //final HtmlTextInput textField = form.getInputByName("userid");
-//
-//	        // Change the value of the text field
-//	        //textField.setValueAttribute("root");
-//
-//	        // Now submit the form by clicking the button and get back the second page.
-	        //System.out.println("aa"+page2.getWebResponse().getContentAsString());
-
 	    }
 	}
 }
